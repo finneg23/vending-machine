@@ -2,13 +2,14 @@ package com.techelevator;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.math.BigDecimal;
 import java.util.Scanner;
 
 /*
  * This class is provided to you as a *suggested* class to start
  * your project. Feel free to refactor this code as you see fit.
  */
-public class VendingMachineCLI {
+public class VendingMachineCLI extends PurchaseCLI{
 
 	private static final String MAIN_MENU_OPTION_DISPLAY_ITEMS = "Display Vending Machine Items";
 	private static final String MAIN_MENU_OPTION_PURCHASE = "Purchase";
@@ -49,11 +50,17 @@ public class VendingMachineCLI {
 				}
 			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
 				while (true) {
-					System.out.println("Current Money Provided: " + );
+					System.out.println("Current Money Provided: " + getCurrentMoneyProvided());
 					System.out.println("(1) Feed Money");
 					System.out.println("(2) Select Product");
 					System.out.println("(3) Finish Transaction");
-					choice = getUserInput().nextLine();
+					String choice2 = getUserInput().nextLine();
+					if (choice2.equals("Feed Money")){
+						System.out.println("Amount of money to add");
+						setMoneyFed(BigDecimal.valueOf(Integer.parseInt(getUserInput().nextLine()))); // this might not work!
+						updateCurrentMoney(getCurrentMoneyProvided(), getMoneyFed());
+					}
+				//	choice = getUserInput().nextLine();
 
 				}
 				// do purchase
