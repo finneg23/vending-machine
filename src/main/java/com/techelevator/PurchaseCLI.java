@@ -23,8 +23,13 @@ public class PurchaseCLI {
     public void run() {
         System.out.println("testing");
     }
-    public BigDecimal updateCurrentMoney(BigDecimal currentMoneyProvided, BigDecimal moneyFed) {
-        currentMoneyProvided = currentMoneyProvided.add(moneyFed);
-        return currentMoneyProvided;
+    public BigDecimal addToCurrentMoney(BigDecimal currentMoneyProvided, BigDecimal moneyFed) {
+        this.currentMoneyProvided = currentMoneyProvided.add(moneyFed);
+        return this.currentMoneyProvided;
+    }
+
+    public BigDecimal subtractFromCurrentMoney(BigDecimal currentMoneyProvided, BigDecimal money) {
+        this.currentMoneyProvided = currentMoneyProvided.subtract(money);
+        return this.currentMoneyProvided;
     }
 }

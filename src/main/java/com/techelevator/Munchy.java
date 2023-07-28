@@ -1,7 +1,9 @@
 package com.techelevator;
 
+import java.math.BigDecimal;
+
 public class Munchy extends Item{
-    public String dispenseMessage() {
-        return "Crunch Crunch, Yum!";
+    public Munchy(BigDecimal price, String slotLocation, String productName, int stock, String dispenseMessage) {
+        super(price, slotLocation, productName, stock, dispenseMessage);
     }
 }
