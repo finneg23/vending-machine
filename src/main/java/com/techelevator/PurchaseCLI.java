@@ -27,8 +27,6 @@ public class PurchaseCLI {
         return moneyFed;
     }
 
- //   PurchaseCLI purchaseMenu = new PurchaseCLI();
-
     public void run() {
         System.out.println("testing");
     }
@@ -60,5 +58,5 @@ public class PurchaseCLI {
         return getPrice.add(BigDecimal.valueOf(BOGODO));
     }
 
-    //TODO format this method to update balance to 0, pull from currentmoneyprovided, and print in a user friendly way
+
 }
