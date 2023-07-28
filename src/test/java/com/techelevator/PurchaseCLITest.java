@@ -23,4 +23,13 @@ public class PurchaseCLITest {
         assertEquals(expectedResult, actualResult);
 
     }
+    @Test
+    public void makeChange_2() {
+
+        String expectedResult = "Your change is " + BigDecimal.valueOf(0) + ", which will be dispensed to you as" + "\n" + 0 + " quarters, " + 0 + " dime(s), & " + 0 + " nickel(s).";
+        String actualResult = purchaseCLI.makeChange(BigDecimal.valueOf(0));
+
+        assertEquals(expectedResult, actualResult);
+
+    }
 }
