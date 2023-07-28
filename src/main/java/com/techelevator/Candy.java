@@ -10,5 +10,13 @@ public class Candy extends Item{
     public void setDispenseMessage(String dispenseMessage) {
         super.setDispenseMessage("Yummy Yummy, So Sweet!");
     }
+    public String dispense(){
+        System.out.println(getProductName() + " $" + getPrice());
+        return getDispenseMessage();
+    }
+ //   public int takeOutOfStock () {
+ //       this.stock--;
+  //      return this.stock;
+  //  }
 
 }

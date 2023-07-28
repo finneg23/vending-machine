@@ -41,6 +41,8 @@ public class VendingMachineCLI extends PurchaseCLI {
 
 	public void run() {
 		List<Item> vendingOptionCodeNamePrice = new ArrayList<>();
+		File file = new File("logger.txt");
+		Logger logger = new Logger (file);
 
 
 		try (Scanner reader = new Scanner(vendingOptions)) {
@@ -100,6 +102,7 @@ public class VendingMachineCLI extends PurchaseCLI {
 						System.out.println("Amount of money to add");
 						setMoneyFed(BigDecimal.valueOf(Double.parseDouble(getUserInput().nextLine())).setScale(2, RoundingMode.HALF_UP)); // this might not work!
 						addToCurrentMoney(getCurrentMoneyProvided(), getMoneyFed());//TODO incorporate writer.ln LocalDateTime FEED MONEY getMoneyFed & getCurrentMoneyProvided
+						logger.write("FEED MONEY $" + getMoneyFed() + " $" + getCurrentMoneyProvided());
 					} else if (choice2.equals(PURCHASE_MENU_SELECT_PRODUCT) || choice2.equals("2")) {
 						for (Item item : vendingOptionCodeNamePrice) {
 							System.out.println(item.getSlotLocation() + " - " + item.getProductName() + " - $" + item.getPrice());
@@ -126,6 +129,7 @@ public class VendingMachineCLI extends PurchaseCLI {
 									itemsPurchasedCounter++;
 									item.takeOutOfStock();
 									//TODO  writerprintln LocalDateTime item.getproductname item.getitemcode item.get price currentmoneyprovided
+									logger.write(item.getProductName() + " " + item.getSlotLocation() + " $" + item.getPrice() + " $" + getCurrentMoneyProvided());
 								}
 								else {item.setPrice(item.getPrice().subtract(BigDecimal.valueOf(1)));
 									subtractFromCurrentMoney(getCurrentMoneyProvided(), item.getPrice());
@@ -134,6 +138,7 @@ public class VendingMachineCLI extends PurchaseCLI {
 									item.setPrice(item.getPrice().add(BigDecimal.valueOf(1)));
 									item.takeOutOfStock();
 									//TODO writerprintln LocalDateTime item.getproductname item.getitemcode item.get price-1 currentmoneyprovided
+									logger.write(item.getProductName() + " " + item.getSlotLocation() + " $" + item.getPrice().subtract(BigDecimal.valueOf(1)) + " $" + getCurrentMoneyProvided());
 								}
 							}
 						}
@@ -143,10 +148,11 @@ public class VendingMachineCLI extends PurchaseCLI {
 						}
 					} else if (choice2.equals(FINISH_TRANSACTION) || choice2.equals("3")) {
 						System.out.println();
+						logger.write("GIVE CHANGE " + " $" + getCurrentMoneyProvided() + " $0.00");
 						makeChange(getCurrentMoneyProvided());
 						System.out.println();
 						break;
-					}
+					}//TODO make sure this still runs properly after changes
 				}
 			} else if (choice.equals(MAIN_MENU_EXIT) || choice.equals("3")) {
 				System.exit(1); //TODO make change & finish transaction
