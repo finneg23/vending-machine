@@ -88,6 +88,7 @@ public class VendingMachineCLI extends PurchaseCLI {
 				} catch (FileNotFoundException e) {
 					System.out.println("Error! Please try again or contact a technician.");
 				}
+				System.out.println();
 			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE) || choice.equals("2")) {
 				while (true) {
 					System.out.println("Current Money Provided: $" + getCurrentMoneyProvided());
@@ -123,7 +124,7 @@ public class VendingMachineCLI extends PurchaseCLI {
 									subtractFromCurrentMoney(getCurrentMoneyProvided(), item.getPrice());
 									System.out.println(item.dispense());
 									itemsPurchasedCounter++;
-									item.setStock(item.getStock() - 1);
+									item.takeOutOfStock();
 									//TODO  writerprintln LocalDateTime item.getproductname item.getitemcode item.get price currentmoneyprovided
 								}
 								else {item.setPrice(item.getPrice().subtract(BigDecimal.valueOf(1)));
@@ -131,7 +132,7 @@ public class VendingMachineCLI extends PurchaseCLI {
 									System.out.println(item.dispense());
 									itemsPurchasedCounter++;
 									item.setPrice(item.getPrice().add(BigDecimal.valueOf(1)));
-									item.setStock(item.getStock() - 1);
+									item.takeOutOfStock();
 									//TODO writerprintln LocalDateTime item.getproductname item.getitemcode item.get price-1 currentmoneyprovided
 								}
 							}
@@ -141,17 +142,14 @@ public class VendingMachineCLI extends PurchaseCLI {
 							System.out.println();
 						}
 					} else if (choice2.equals(FINISH_TRANSACTION) || choice2.equals("3")) {
-						ChangeMenu test = new ChangeMenu();
-						test.makeChange(getCurrentMoneyProvided());
+						System.out.println();
+						makeChange(getCurrentMoneyProvided());
+						System.out.println();
+						break;
 					}
 				}
 			} else if (choice.equals(MAIN_MENU_EXIT) || choice.equals("3")) {
-				ChangeMenu test = new ChangeMenu();
-				test.makeChange(getCurrentMoneyProvided());
 				System.exit(1); //TODO make change & finish transaction
-//				remainder = 3.90 % 0.25 15 quarters
-//				remainder = 0.15 % 0.10 1 dime
-//				remainder = 0.05  1 nickel
 //					PrintWriter writer = new PrintWriter
 //							writer.println(LocalDateTime );
 			}

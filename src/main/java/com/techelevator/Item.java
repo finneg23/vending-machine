@@ -38,10 +38,6 @@ public abstract class Item {
         this.price = price;
     }
 
-    public void setStock(int stock) {
-        this.stock = stock;
-    }
-
     private String dispenseMessage;
 
     public Item(BigDecimal price, String slotLocation, String productName, int stock, String dispenseMessage) {
@@ -55,6 +51,11 @@ public abstract class Item {
     public String dispense(){
         System.out.println(getProductName() + " $" + getPrice());
         return getDispenseMessage();
+    }
+
+    public int takeOutOfStock () {
+        this.stock--;
+        return this.stock;
     }
     //print the dispense message
     //subtract the amount from the current money
