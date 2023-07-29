@@ -16,8 +16,6 @@ public abstract class Item {
     public BigDecimal getPrice() {
         return price;
     }
-
-
     public String getSlotLocation() {
         return slotLocation;
     }
@@ -57,9 +55,18 @@ public abstract class Item {
         this.stock--;
         return this.stock;
     }
-    //print the dispense message
-    //subtract the amount from the current money
-        //check to see if another product has been purchased for discounting
-    //update the quantity(stock)
-    //sout get name, get cost, get current money provided, get message
+
+    public BigDecimal discountItemPrice (Item item, int saleCounter) {
+        if (saleCounter % 2 == 1) {
+            item.price = item.getPrice().subtract(BigDecimal.valueOf(1));
+        }
+        return item.price;
+    }
+
+    public BigDecimal resetItemPrice (Item item, int saleCounter) {
+        if (saleCounter % 2 == 1) {
+            item.price = item.getPrice().add(BigDecimal.valueOf(1));
+        }
+        return item.price;
+    }
 }

@@ -45,7 +45,7 @@ public class PurchaseCLI {
         dimes = ((currentMoneyProvided.subtract(quarters.multiply(BigDecimal.valueOf(QUARTER)))).divide(BigDecimal.valueOf(DIME))).setScale(0, RoundingMode.DOWN);
         nickels = ((currentMoneyProvided.subtract(quarters.multiply(BigDecimal.valueOf(QUARTER)))).subtract(dimes.multiply(BigDecimal.valueOf(DIME))).divide(BigDecimal.valueOf(NICKEL))).setScale(0, RoundingMode.DOWN);
         System.out.println("Your change is " + currentMoneyProvided + ", which will be dispensed to you as" + "\n" + quarters + " quarters, " + dimes + " dime(s), & " + nickels + " nickel(s).");
-        change = "Your change is " + currentMoneyProvided + ", which will be dispensed to you as" + "\n" + quarters + " quarters, " + dimes + " dime(s), & " + nickels + " nickel(s).";
+        change = "Your change is $" + currentMoneyProvided + ", which will be dispensed to you as" + "\n" + quarters + " quarters, " + dimes + " dime(s), & " + nickels + " nickel(s).";
         this.currentMoneyProvided = BigDecimal.valueOf(0);
         return change;
     }

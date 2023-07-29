@@ -16,48 +16,23 @@ public class VendingMachineCLI extends PurchaseCLI {
 	private static final String FINISH_TRANSACTION = "Finish Transaction";
 	private int itemsPurchasedCounter = 0;
 	private String choice = "";
-	private File vendingOptions = new File("alternate.csv");
+	private File vendingOptions = new File("main.csv");
 
 	private Scanner userInput = new Scanner(System.in);
-
-	public int getItemsPurchasedCounter() {
-		return itemsPurchasedCounter;
-	}
-
 	public Scanner getUserInput() {
 		return userInput;
 	}
-
 	public static void main(String[] args) {
 		VendingMachineCLI cli = new VendingMachineCLI();
 		cli.run();
 	}
-
 	public void run() {
 		List<Item> vendingOptionCodeNamePrice = new ArrayList<>();
 		File file = new File("logger.txt");
-		Logger logger = new Logger (file);
+		Logger logger = new Logger(file);
+		Reader readInput = new Reader(vendingOptionCodeNamePrice);
+		readInput.read();
 
-		try (Scanner reader = new Scanner(vendingOptions)) {
-			while (reader.hasNextLine()) {
-				String vendingOptionsLine = reader.nextLine();
-				String[] vendingOptionsLineSplit = vendingOptionsLine.split(",");
-				if (Objects.equals(vendingOptionsLineSplit[3], "Candy")) {
-					vendingOptionCodeNamePrice.add(new Candy(BigDecimal.valueOf(Double.parseDouble(vendingOptionsLineSplit[2])), vendingOptionsLineSplit[0], vendingOptionsLineSplit[1], 5, "Yummy Yummy, So Sweet!"));
-				} else if (Objects.equals(vendingOptionsLineSplit[3], "Gum")) {
-					vendingOptionCodeNamePrice.add(new Gum(BigDecimal.valueOf(Double.parseDouble(vendingOptionsLineSplit[2])), vendingOptionsLineSplit[0], vendingOptionsLineSplit[1], 5, "Chew Chew, Yum!"));
-				} else if (Objects.equals(vendingOptionsLineSplit[3], "Munchy")) {
-					vendingOptionCodeNamePrice.add(new Munchy(BigDecimal.valueOf(Double.parseDouble(vendingOptionsLineSplit[2])), vendingOptionsLineSplit[0], vendingOptionsLineSplit[1], 5, "Crunch Crunch, Yum!"));
-				} else if (Objects.equals(vendingOptionsLineSplit[3], "Drink")) {
-					vendingOptionCodeNamePrice.add(new Drink(BigDecimal.valueOf(Double.parseDouble(vendingOptionsLineSplit[2])), vendingOptionsLineSplit[0], vendingOptionsLineSplit[1], 5, "Glug Glug, Yum!"));
-				}
-			}
-		} catch (FileNotFoundException e) {
-			System.out.println("Error! Please try again or contact a technician.");
-		} catch (ArrayIndexOutOfBoundsException f) {
-			System.out.println("Error! File: <" + vendingOptions.getPath() + "> has been corrupted.");
-			System.exit(0);
-		}
 		while (true) {
 
 			System.out.println("(1) Display Vending Machine Items");
@@ -88,7 +63,7 @@ public class VendingMachineCLI extends PurchaseCLI {
 						try {
 							setMoneyFed(BigDecimal.valueOf(Double.parseDouble(getUserInput().nextLine())).setScale(2, RoundingMode.HALF_UP));//TODO confirm taking in doubles as opposed to ints is okay
 							addToCurrentMoney(getCurrentMoneyProvided(), getMoneyFed());
-							logger.write("FEED MONEY $" + getMoneyFed() + " $" + getCurrentMoneyProvided());
+							logger.write("FEED MONEY $" + userInput.nextLine() + " $" + getCurrentMoneyProvided());
 						} catch (NumberFormatException e) {
 							System.out.println("\n" + "No number value detected." + "\n");
 						}
@@ -110,20 +85,14 @@ public class VendingMachineCLI extends PurchaseCLI {
 								validity = true;
 								if (getCurrentMoneyProvided().compareTo((item.getPrice())) < 0) {
 									System.out.println("\n" + "Insufficient funds." + "\n");
-								} else if (getCurrentMoneyProvided().compareTo((item.getPrice())) >= 0 && itemsPurchasedCounter % 2 == 0) {
+								} else {
+									item.discountItemPrice(item, itemsPurchasedCounter);
 									subtractFromCurrentMoney(getCurrentMoneyProvided(), item.getPrice());
 									System.out.println(item.dispense());
-									itemsPurchasedCounter++;
-									item.takeOutOfStock();
 									logger.write(item.getProductName() + " " + item.getSlotLocation() + " $" + item.getPrice() + " $" + getCurrentMoneyProvided());
-								}
-								else {item.setPrice(item.getPrice().subtract(BigDecimal.valueOf(1)));
-									subtractFromCurrentMoney(getCurrentMoneyProvided(), item.getPrice());
-									System.out.println(item.dispense());
+									item.resetItemPrice(item, itemsPurchasedCounter);
 									itemsPurchasedCounter++;
-									item.setPrice(item.getPrice().add(BigDecimal.valueOf(1)));
 									item.takeOutOfStock();
-									logger.write(item.getProductName() + " " + item.getSlotLocation() + " $" + item.getPrice().subtract(BigDecimal.valueOf(1)) + " $" + getCurrentMoneyProvided());
 								}
 							}
 						}
