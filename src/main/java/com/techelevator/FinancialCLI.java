@@ -14,6 +14,10 @@ public class FinancialCLI {
     private final double DIME = 0.10;
     private final double NICKEL = 0.05;
     private final double BOGODO = 1.00;
+    private BigDecimal totalSalesTracker = BigDecimal.valueOf(0);
+    public BigDecimal getTotalSalesTracker() {
+        return totalSalesTracker;
+    }
 
     public void setMoneyFed(BigDecimal moneyFed) {
         this.moneyFed = moneyFed;
@@ -48,6 +52,11 @@ public class FinancialCLI {
         System.out.println(change);
         this.currentMoneyProvided = BigDecimal.valueOf(0);
         return change;
+    }
+
+    public BigDecimal addToTotalSalesTracker (Item item) {
+        totalSalesTracker = totalSalesTracker.add(item.getPrice());
+        return totalSalesTracker;
     }
 
 }

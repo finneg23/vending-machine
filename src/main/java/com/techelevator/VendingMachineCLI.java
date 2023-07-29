@@ -88,6 +88,7 @@ public class VendingMachineCLI extends FinancialCLI {
 								} else {
 									item.discountItemPrice(item, itemsPurchasedCounter);
 									subtractFromCurrentMoney(getCurrentMoneyProvided(), item.getPrice());
+									addToTotalSalesTracker(item);
 									System.out.println(item.dispense());
 									logger.write(item.getProductName() + " " + item.getSlotLocation() + " $" + item.getPrice() + " $" + getCurrentMoneyProvided());
 									item.resetItemPrice(item, itemsPurchasedCounter);
@@ -103,12 +104,16 @@ public class VendingMachineCLI extends FinancialCLI {
 						System.out.println();
 						logger.write("GIVE CHANGE " + " $" + getCurrentMoneyProvided() + " $0.00");
 						makeChange(getCurrentMoneyProvided());
+						System.out.println(getTotalSalesTracker());//TODO pull this outta here & set up a writer (pipes, item iterator, etc.)
 						System.out.println();
 						break;
 					}
 				}
 			} else if (choice.equalsIgnoreCase(MAIN_MENU_EXIT) || choice.equals("3")) {
 				System.exit(1);
+			} else if (choice.equals("4")) {
+				logger.ledge(vendingOptionCodeNamePrice, getTotalSalesTracker());
+				System.exit(2);
 			}
 		}
 	}
