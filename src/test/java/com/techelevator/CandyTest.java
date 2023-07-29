@@ -29,4 +29,21 @@ private Candy candy;
         assertEquals(candy.getDispenseMessage(), actualMessage);
 
     }
+    @Test
+    public void test_DiscountItemPrice(){
+
+        BigDecimal actualResult = candy.discountItemPrice(candy, 1);
+        BigDecimal expectedResult = BigDecimal.valueOf(3.25);
+
+        assertEquals( actualResult, expectedResult);
+    }
+    @Test
+    public void test_resetItemPrice(){
+
+        BigDecimal actualResult = candy.resetItemPrice(candy,2);
+        BigDecimal expectedResult = BigDecimal.valueOf(4.25);
+
+        assertEquals(actualResult, expectedResult);
+    }
+
 }

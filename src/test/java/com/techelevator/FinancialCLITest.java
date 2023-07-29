@@ -32,4 +32,22 @@ public class FinancialCLITest {
         assertEquals(expectedResult, actualResult);
 
     }
+    @Test
+    public void addToCurrentMoneyTest() {
+
+        BigDecimal expectedResult = BigDecimal.valueOf(0);
+        BigDecimal actualResult = financialCLI.addToCurrentMoney(BigDecimal.valueOf(0), BigDecimal.valueOf(0));
+
+        assertEquals(expectedResult, actualResult);
+
+    }
+    @Test
+    public void subtractFromCurrentMoneyTest() {
+
+        BigDecimal expectedResult = BigDecimal.valueOf(4);
+        BigDecimal actualResult = financialCLI.subtractFromCurrentMoney(BigDecimal.valueOf(4), BigDecimal.valueOf(0));
+
+        assertEquals(expectedResult, actualResult);
+
+    }
 }

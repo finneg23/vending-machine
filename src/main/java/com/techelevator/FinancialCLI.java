@@ -50,13 +50,4 @@ public class FinancialCLI {
         return change;
     }
 
-    public BigDecimal priceDiscount (BigDecimal getPrice) {
-        return getPrice.subtract(BigDecimal.valueOf(BOGODO));
-    }
-
-    public BigDecimal priceReset (BigDecimal getPrice) {
-        return getPrice.add(BigDecimal.valueOf(BOGODO));
-    }
-
-
 }
