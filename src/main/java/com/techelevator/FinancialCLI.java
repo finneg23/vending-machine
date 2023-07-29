@@ -3,7 +3,7 @@ package com.techelevator;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class PurchaseCLI {
+public class FinancialCLI {
     private BigDecimal currentMoneyProvided = new BigDecimal(0);
     private BigDecimal moneyFed;
     private String change;
@@ -44,8 +44,8 @@ public class PurchaseCLI {
         quarters = ((currentMoneyProvided.divide(BigDecimal.valueOf(QUARTER))).setScale(0, RoundingMode.DOWN));
         dimes = ((currentMoneyProvided.subtract(quarters.multiply(BigDecimal.valueOf(QUARTER)))).divide(BigDecimal.valueOf(DIME))).setScale(0, RoundingMode.DOWN);
         nickels = ((currentMoneyProvided.subtract(quarters.multiply(BigDecimal.valueOf(QUARTER)))).subtract(dimes.multiply(BigDecimal.valueOf(DIME))).divide(BigDecimal.valueOf(NICKEL))).setScale(0, RoundingMode.DOWN);
-        System.out.println("Your change is " + currentMoneyProvided + ", which will be dispensed to you as" + "\n" + quarters + " quarters, " + dimes + " dime(s), & " + nickels + " nickel(s).");
         change = "Your change is $" + currentMoneyProvided + ", which will be dispensed to you as" + "\n" + quarters + " quarters, " + dimes + " dime(s), & " + nickels + " nickel(s).";
+        System.out.println(change);
         this.currentMoneyProvided = BigDecimal.valueOf(0);
         return change;
     }

@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
 
-public class VendingMachineCLI extends PurchaseCLI {
+public class VendingMachineCLI extends FinancialCLI {
 
 	private static final String MAIN_MENU_OPTION_DISPLAY_ITEMS = "Display Vending Machine Items";
 	private static final String MAIN_MENU_OPTION_PURCHASE = "Purchase";
@@ -63,7 +63,7 @@ public class VendingMachineCLI extends PurchaseCLI {
 						try {
 							setMoneyFed(BigDecimal.valueOf(Double.parseDouble(getUserInput().nextLine())).setScale(2, RoundingMode.HALF_UP));//TODO confirm taking in doubles as opposed to ints is okay
 							addToCurrentMoney(getCurrentMoneyProvided(), getMoneyFed());
-							logger.write("FEED MONEY $" + userInput.nextLine() + " $" + getCurrentMoneyProvided());
+							logger.write("FEED MONEY $" + getMoneyFed() + " $" + getCurrentMoneyProvided());
 						} catch (NumberFormatException e) {
 							System.out.println("\n" + "No number value detected." + "\n");
 						}
