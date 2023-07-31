@@ -84,9 +84,3 @@ public abstract class Item {
         return item.price;
     }
 }
-
-//    public BigDecimal addToTotalSalesTracker (Item item) {
-//        totalSalesTracker = totalSalesTracker.add(item.getPrice());
-//        return totalSalesTracker;
-//    }
-//}

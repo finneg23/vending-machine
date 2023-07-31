@@ -17,7 +17,6 @@ public class VendingMachineCLI extends FinancialCLI {
 	private int itemsPurchasedCounter = 0;
 	private String choice = "";
 	private File vendingOptions = new File("main.csv");
-
 	private Scanner userInput = new Scanner(System.in);
 	public Scanner getUserInput() {
 		return userInput;
@@ -34,7 +33,6 @@ public class VendingMachineCLI extends FinancialCLI {
 		readInput.read();
 
 		while (true) {
-
 			System.out.println("(1) Display Vending Machine Items");
 			System.out.println("(2) Purchase");
 			System.out.println("(3) Exit");
@@ -45,7 +43,6 @@ public class VendingMachineCLI extends FinancialCLI {
 				try (Scanner reader = new Scanner(vendingOptions)) {
 					while (reader.hasNextLine()) {
 						System.out.println(reader.nextLine());
-						//TODO **OPTIONAL** print the list instead of readerNL for ~customization~ 3:22 7/27
 					}
 				} catch (FileNotFoundException e) {
 					System.out.println("Error! Please try again or contact a technician.");
@@ -61,7 +58,7 @@ public class VendingMachineCLI extends FinancialCLI {
 					if (choice2.equals(PURCHASE_MENU_FEED_MONEY) || choice2.equals("1")) {
 						System.out.print("\n" + "Please enter an amount of money to add (i.e. 5):   ");
 						try {
-							setMoneyFed(BigDecimal.valueOf(Double.parseDouble(getUserInput().nextLine())).setScale(2, RoundingMode.HALF_UP));//TODO confirm taking in doubles as opposed to ints is okay
+							setMoneyFed(BigDecimal.valueOf(Double.parseDouble(getUserInput().nextLine())).setScale(2, RoundingMode.HALF_UP));
 							addToCurrentMoney(getCurrentMoneyProvided(), getMoneyFed());
 							logger.write("FEED MONEY $" + getMoneyFed() + " $" + getCurrentMoneyProvided());
 						} catch (NumberFormatException e) {
@@ -104,7 +101,6 @@ public class VendingMachineCLI extends FinancialCLI {
 						System.out.println();
 						logger.write("GIVE CHANGE " + " $" + getCurrentMoneyProvided() + " $0.00");
 						makeChange(getCurrentMoneyProvided());
-						System.out.println(getTotalSalesTracker());//TODO pull this outta here & set up a writer (pipes, item iterator, etc.)
 						System.out.println();
 						break;
 					}
